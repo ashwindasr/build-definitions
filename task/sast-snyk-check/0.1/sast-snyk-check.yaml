@@ -14,7 +14,7 @@ spec:
     - description: Tekton task test output.
       name: TEST_OUTPUT
     - description: OCI pullspec where the full SARIF result can be found.
-      name: RESULT_URI
+      name: SAST_RESULT_URI
   params:
     - name: SNYK_SECRET
       description: Name of secret which contains Snyk token.
@@ -120,9 +120,9 @@ spec:
         IFS=':' read -ra REPO <<< "$IMAGE_URL"
         REPO="${REPO[0]}"
         DIGEST=$(echo "${IMAGE_DIGEST}" | tr : -)
-        RESULT_URI="${REPO}:${DIGEST}.${SUFFIX}"
+        SAST_RESULT_URI="${REPO}:${DIGEST}.${SUFFIX}"
 
-        retry oras push --no-tty --registry-config "$HOME/.docker/config.json" "${RESULT_URI}" "${UPLOAD_FILE}:${MEDIA_TYPE}"
-        echo "${RESULT_URI}" > $(results.RESULT_URI.path)
+        retry oras push --no-tty --registry-config "$HOME/.docker/config.json" "${SAST_RESULT_URI}" "${UPLOAD_FILE}:${MEDIA_TYPE}"
+        echo "${SAST_RESULT_URI}" > $(results.SAST_RESULT_URI.path)
   workspaces:
   - name: workspace

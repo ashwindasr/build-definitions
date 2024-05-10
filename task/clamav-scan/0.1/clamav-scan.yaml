@@ -15,7 +15,7 @@ spec:
       description: Tekton task test output.
     - name: IMAGES_PROCESSED
       description: Images processed in the task.
-    - name: RESULT_URI
+    - name: CLAMAV_RESULT_URI
       description: OCI pullspec where the full clamav output can be found.
   params:
     - name: image-digest
@@ -159,7 +159,7 @@ spec:
         REPO="${REPO[0]}"
         DIGEST=$(echo "${IMAGE_DIGEST}" | tr : -)
         SUFFIX=clamav
-        RESULT_URI="${REPO}:${DIGEST}.${SUFFIX}"
+        CLAMAV_RESULT_URI="${REPO}:${DIGEST}.${SUFFIX}"
 
         cd logs
 
@@ -171,8 +171,8 @@ spec:
           MEDIA_TYPE=application/vnd.konflux.test_output+json
           args+=("${UPLOAD_FILE}:${MEDIA_TYPE}")
         done
-        retry oras push --no-tty --registry-config "$HOME/.docker/config.json" "${RESULT_URI}" "${args[@]}"
-        echo "${RESULT_URI}" > $(results.RESULT_URI.path)
+        retry oras push --no-tty --registry-config "$HOME/.docker/config.json" "${CLAMAV_RESULT_URI}" "${args[@]}"
+        echo "${CLAMAV_RESULT_URI}" > $(results.CLAMAV_RESULT_URI.path)
       volumeMounts:
         - mountPath: /work
           name: work
