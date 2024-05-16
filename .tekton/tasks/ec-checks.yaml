@@ -23,7 +23,7 @@ spec:
       $(all_tasks_dir all_tasks-ec)
   - name: validate-all-tasks
     workingDir: "$(workspaces.source.path)/source"
-    image: quay.io/enterprise-contract/ec-cli:snapshot@sha256:c9e705ef35c130d49440310e0b8d73a2c654613a3fb637a63b35a6793a4cbe1f
+    image: quay.io/enterprise-contract/ec-cli:snapshot@sha256:d048b0af7cbaa19a4629e02e2abf59b43a1c7626063067fec90c9c32b84a38d7
     script: |
       set -euo pipefail
 
@@ -37,7 +37,7 @@ spec:
       ec validate input --policy "${policy}" --output yaml --strict=true ${args[*]}
   - name: validate-build-tasks
     workingDir: "$(workspaces.source.path)/source"
-    image: quay.io/enterprise-contract/ec-cli:snapshot@sha256:c9e705ef35c130d49440310e0b8d73a2c654613a3fb637a63b35a6793a4cbe1f
+    image: quay.io/enterprise-contract/ec-cli:snapshot@sha256:d048b0af7cbaa19a4629e02e2abf59b43a1c7626063067fec90c9c32b84a38d7
     script: |
       set -euo pipefail
 
